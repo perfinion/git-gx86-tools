@@ -40,6 +40,12 @@ case ${refname} in
 			exit 1
 		fi
 
+		if [[ -z "$(git rev-list --first-parent "$newrev" | fgrep -m1 "$oldrev")" ]]; then
+			echo "*** Current master is not a first-parent of the push"
+			echo "*** something probably went wrong with a merge"
+			exit 1
+		fi
+
 		IFS='
 '
 
